@@ -52,17 +52,17 @@
                 },
                 deleteRow(id) {
                     axios.delete('/tmpls/' + id)
-                        .then(
-                            (response) => {
-                                console.log(response);
-                                this.$message({
-                                    message: 'delete success',
-                                    type: 'success'
-                                });
-                                this.reload();
-                            }
-                        )
-                        .catch(error => console.log(error));
+                      .then(
+                        (response) => {
+                            console.log(response);
+                            this.$message({
+                                message: 'delete success',
+                                type: 'success'
+                            });
+                            this.reload();
+                        }
+                      )
+                      .catch(error => console.log(error));
                 },
                 reload() {
                     var _this = this;
@@ -74,31 +74,31 @@
                         api: true
                     };
                     axios.get('/tmpls/', {params: request_parameter})
-                        .then((response) => {
-                            _this.fullscreen_loading = false;
-                            var message_type = 'reload error';
-                            let response_parameter = response.data;
-                            if (200 == response_parameter.code) {
-                                _this.list_data = response_parameter.data.data;
-                                _this.page = response_parameter.page;
-                                let go_url = '#' + _this.getUrl(response.request.responseURL);
-                                window.history.pushState({reload: 'reload'}, 'title', go_url);
-                            } else {
-                                _this.fullscreen_loading = false;
-                                this.$message({
-                                    message: response_parameter.msg,
-                                    type: message_type
-                                });
-                                _this.list_data = [];
-                                _this.page = {};
-                            }
-                        })
-                        .catch(error => {
-                            _this.fullscreen_loading = false;
-                            _this.list_data = [];
-                            _this.page = {};
-                            console.log('error', error);
-                        });
+                      .then((response) => {
+                          _this.fullscreen_loading = false;
+                          var message_type = 'reload error';
+                          let response_parameter = response.data;
+                          if (200 == response_parameter.code) {
+                              _this.list_data = response_parameter.data.data;
+                              _this.page = response_parameter.page;
+                              let go_url = '#' + _this.getUrl(response.request.responseURL);
+                              window.history.pushState({reload: 'reload'}, 'title', go_url);
+                          } else {
+                              _this.fullscreen_loading = false;
+                              this.$message({
+                                  message: response_parameter.msg,
+                                  type: message_type
+                              });
+                              _this.list_data = [];
+                              _this.page = {};
+                          }
+                      })
+                      .catch(error => {
+                          _this.fullscreen_loading = false;
+                          _this.list_data = [];
+                          _this.page = {};
+                          console.log('error', error);
+                      });
                 },
                 getUrl(url) {
                     let indexOf = url.indexOf("?");
