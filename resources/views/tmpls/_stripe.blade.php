@@ -7,7 +7,7 @@
                 </el-button>
             </a>
             <a href="/export/tmpls" target="_blank">
-                <el-button  plain icon="el-icon-download">导出</el-button>
+                <el-button plain icon="el-icon-download">导出</el-button>
             </a>
         </el-col>
         <el-col :span="5">

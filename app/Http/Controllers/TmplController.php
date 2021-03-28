@@ -320,7 +320,7 @@ class TmplController extends Controller
 
     public function testQueryDb()
     {
-//        return 'yoyo';
+        //        return 'yoyo';
         /*$act_time = microtime(true);
         $sum = 0;
         for ($i = 1; $i < 100000; $i++) {

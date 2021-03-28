@@ -13,9 +13,9 @@ use Reliese\Database\Eloquent\Model;
 /**
  * Class Tmpl
  *
- * @property int $id
+ * @property int    $id
  * @property string $name
- * @property int $sex
+ * @property int    $sex
  * @property Carbon $created_at
  * @property string $created_by
  * @property Carbon $updated_at
@@ -44,18 +44,19 @@ use Reliese\Database\Eloquent\Model;
  */
 class Tmpl extends Model
 {
-	use SoftDeletes;
-	protected $table = 'tmpls';
+    use SoftDeletes;
 
-	protected $casts = [
-		'sex' => 'int'
-	];
+    protected $table = 'tmpls';
 
-	protected $fillable = [
-		'name',
-		'sex',
-		'created_by',
-		'updated_by',
-		'deleted_by'
-	];
+    protected $casts = [
+        'sex' => 'int',
+    ];
+
+    protected $fillable = [
+        'name',
+        'sex',
+        'created_by',
+        'updated_by',
+        'deleted_by',
+    ];
 }

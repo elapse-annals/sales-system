@@ -1,12 +1,15 @@
-<el-aside width="150px" style="background-color: rgb(238, 241, 246)">
+<el-aside width="150px" id="aside" style="background-color: rgb(238, 241, 246);display: none">
     <el-menu :default-openeds="['1']">
         <el-submenu index="1">
-            <template slot="title"><i class="el-icon-message"></i>tmpls</template>
+            <template slot="title"><i class="el-icon-message"></i>tmpl</template>
             <el-menu-item-group>
-                <a href="/tmpls"><el-menu-item index="1-1">list</el-menu-item></a>
-                <a href="/tmpls/create"><el-menu-item index="1-2">create</el-menu-item></a>
+                <a href="/tmpls">
+                    <el-menu-item index="1-1">列表</el-menu-item>
+                </a>
+                <a href="/tmpls/create">
+                    <el-menu-item index="1-1">创建</el-menu-item>
+                </a>
             </el-menu-item-group>
-
         </el-submenu>
         <el-submenu index="2">
             <template slot="title"><i class="el-icon-menu"></i>导航二</template>

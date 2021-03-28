@@ -25,11 +25,10 @@ class WhereService extends Service
         array $search_map,
         array $where = [],
         array $search_accurate_array = []
-    )
-    {
+    ) {
         if ($request_data['search']) {
             foreach ($request_data['search'] as $key => $value) {
-                if (((is_string($value) && '' != $value) || (is_array($value) && !empty($value))) && $search_map[$key]) {
+                if (((is_string($value) && '' != $value) || (is_array($value) && ! empty($value))) && $search_map[$key]) {
                     switch ($key) {
                         case 'created_at':
                         case 'updated_at':
@@ -63,9 +62,9 @@ class WhereService extends Service
      */
     public static function getBetweenDate($column, $start_date, $end_date)
     {
-        if (empty($start_date) && !empty($end_date)) {
+        if (empty($start_date) && ! empty($end_date)) {
             $start_date = self::MIN_TIME;
-        } elseif (empty($end_date) && !empty($start_date)) {
+        } elseif (empty($end_date) && ! empty($start_date)) {
             $end_date = self::MAX_TIME;
         }
         $start_date = DateService::format($start_date) . ' 00:00:00';
@@ -81,7 +80,7 @@ class WhereService extends Service
      */
     private static function joinPage(array $request_data)
     {
-        if (!$request_data['pages'] && $request_data['page']) {
+        if (! $request_data['pages'] && $request_data['page']) {
             $request_data['pages'] = $request_data['page'];
         }
         if ($request_data['pages']) {
@@ -96,7 +95,7 @@ class WhereService extends Service
     {
         if ($request_data['search']) {
             foreach ($request_data['search'] as $key => $value) {
-                if (((is_string($value) && '' != $value) || (is_array($value) && !empty($value))) && $search_map[$key]) {
+                if (((is_string($value) && '' != $value) || (is_array($value) && ! empty($value))) && $search_map[$key]) {
                     switch ($key) {
                         case 'created_at':
                             $where .= self::getBetweenDateString($value['start'], $value['end'], '', $search_map[$key]);
@@ -131,14 +130,14 @@ class WhereService extends Service
 
     public static function getBetweenDateString($start_date, $end_date, $where, $date_key)
     {
-        if (!empty($start_date) && !empty($end_date)) {
+        if (! empty($start_date) && ! empty($end_date)) {
             $start_date .= ' 00:00:00';
             $end_date .= ' 23:59:59';
             $where = $date_key . ' BETWEEN ' . "'$start_date'" . ' AND ' . "'$end_date'" . ' AND ';
-        } elseif (empty($start_date) && !empty($end_date)) {
+        } elseif (empty($start_date) && ! empty($end_date)) {
             $end_date .= ' 23:59:59';
             $where = $date_key . ' <= ' . "'$end_date'" . ' AND ';
-        } elseif (empty($end_date) && !empty($start_date)) {
+        } elseif (empty($end_date) && ! empty($start_date)) {
             $start_date .= ' 00:00:00';
             $where = $date_key . ' >= ' . "'$start_date'" . ' AND ';
         }

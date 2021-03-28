@@ -18,9 +18,9 @@ class Repository
     }
 
     /**
-     * @param $model
-     * @param array $data
-     * @param array $table_maps
+     * @param        $model
+     * @param array  $data
+     * @param array  $table_maps
      * @param string $match_method
      *
      * @return mixed
@@ -36,7 +36,7 @@ class Repository
             switch ($key) {
                 case 'created_at':
                 case 'updated_at':
-                case 'deleteed_at':
+                case 'deleted_at':
                     $model = $model->when($datum, function ($query, $datum) use ($temp_key) {
                         return $query->whereBetween($temp_key, $this->getBetweenDate(...array_values($datum)));
                     });

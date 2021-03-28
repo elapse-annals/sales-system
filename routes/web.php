@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,37 +13,19 @@
 |
 */
 
-Auth::routes();
-
-Route::get('/', 'ClosureController@welcome');
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-//Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-
-Route::get('plural/{singular}', 'StringController@plural');
-
-Route::prefix('login')->group(function () {
-    Route::get('google', 'Auth\LoginController@redirectToProvider');
-    Route::get('google/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('/', function () {
+    return view('welcome');
 });
 
 /**
  * Export routing registration
  */
 Route::prefix('export')->group(function () {
-    Route::get('tmpls', 'TmplController@export');
+    Route::get('tmpls', [App\Http\Controllers\TmplController::class, 'export']);
 });
 
-/**
- * Resource route
- */
-//Route::resource('languages', 'LanguageController');
+Route::middleware(['auth:sanctum'])->resource('tmpls', App\Http\Controllers\TmplController::class);
 
-Route::resource('tmpls', 'TmplController');
-
-Route::get('hello', 'ClosureController@hello');
-
-
-
-
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');

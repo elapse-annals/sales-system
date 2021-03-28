@@ -10,10 +10,10 @@ namespace App\Formatters;
 class TmplFormatter extends Formatter
 {
     /**
-     * if Association model need :  
+     * if Association model need :
      *      foreach ($items as &$item) {
-                $item['info'] = [$item['info']];
-            }
+     * $item['info'] = [$item['info']];
+     * }
      *
      * @param array $data
      *
@@ -23,12 +23,12 @@ class TmplFormatter extends Formatter
     {
         $items = collect($data['tmpls']->items())->toArray();
         return [
-            'info' => $data['info'],
-            'js_data' => [
+            'info'       => $data['info'],
+            'js_data'    => [
                 'data' => $items,
                 'page' => $this->assemblyPage($data['tmpls']),
             ],
-            'list_map' => $data['list_map'],
+            'list_map'   => $data['list_map'],
             'search_map' => $data['search_map'],
         ];
     }

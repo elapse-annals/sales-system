@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
  */
 class StringService extends Service
 {
-    
+
     /**
      * @param Request $request
      *
@@ -23,11 +23,11 @@ class StringService extends Service
     }
 
     /**
-     * 
+     *
      */
-    public static function removeKilometer(string $data):float
+    public static function removeKilometer(string $data): float
     {
-        return str_replace(',','',$data);
+        return str_replace(',', '', $data);
     }
 
 }
