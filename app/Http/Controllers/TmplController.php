@@ -143,7 +143,7 @@ class TmplController extends Controller
         $messages = [];
         $rules = $this->dynamicVerification($rules);
         if (! empty($rules)) {
-            $validator = Validator::make($data, $rules, $messages);
+            $validator = Validator::make($data, $rules);
             if ($validator->errors()) {
                 throw new Exception($validator->errors()->first(), 416);
             }
