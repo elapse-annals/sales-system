@@ -72,7 +72,7 @@ class TmplController extends Controller
             }
             $this->validationIndexRequest($data);
             $tmpls = $this->service->getList($data);
-            if ($request->is('api/*') || true === $request->input('api')) {
+            if ($request->is('api/*') || true == $request->input('api')) {
                 return $this->successReturn($tmpls, $this->formatter->assemblyPage($tmpls));
             }
             $table_comment_map = $this->getTableCommentMap('tmpls');
@@ -143,7 +143,7 @@ class TmplController extends Controller
         $messages = [];
         $rules = $this->dynamicVerification($rules);
         if (! empty($rules)) {
-            $validator = Validator::make($data, $rules);
+            $validator = Validator::make($data, $rules, $messages);
             if ($validator->errors()) {
                 throw new Exception($validator->errors()->first(), 416);
             }

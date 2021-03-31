@@ -52,7 +52,7 @@ return [
         |
         */
 
-        'parent' => Reliese\Database\Eloquent\Model::class,
+        'parent' => Illuminate\Database\Eloquent\Model::class,
 
         /*
         |--------------------------------------------------------------------------
@@ -170,7 +170,7 @@ return [
         |
         */
 
-        'base_files' => true,
+        'base_files' => false,
 
         /*
         |--------------------------------------------------------------------------
@@ -187,6 +187,19 @@ return [
 
         /*
         |--------------------------------------------------------------------------
+        | Indent options
+        |--------------------------------------------------------------------------
+        |
+        | As default indention is done with tabs, but you can change it by setting
+        | this to the amount of spaces you that you want to use for indentation.
+        | Usually you will use 4 spaces instead of tabs.
+        |
+        */
+
+        'indent_with_space' => 0,
+
+        /*
+        |--------------------------------------------------------------------------
         | Qualified Table Names
         |--------------------------------------------------------------------------
         |
@@ -194,6 +207,11 @@ return [
         | MySQL), you can make sure your models take into account their
         | respective database schema.
         |
+        | Can Either be NULL, FALSE or TRUE
+        | TRUE: Schema name will be prepended on the table
+        | FALSE:Table name will be set without schema name.
+        | NULL: Table name will follow laravel pattern,
+        |   i.e if class name(plural) matches table name, then table name will not be added
         */
 
         'qualified_tables' => false,
@@ -264,6 +282,136 @@ return [
         'except' => [
             'migrations',
         ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Specified Tables
+        |--------------------------------------------------------------------------
+        |
+        | You can specify specific tables. This will generate the models only
+        | for selected tables, ignoring the rest.
+        |
+        */
+
+        'only' => [
+            // 'users',
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Table Prefix
+        |--------------------------------------------------------------------------
+        |
+        | If you have a prefix on your table names but don't want it in the model
+        | and relation names, specify it here.
+        |
+        */
+
+        'table_prefix' => '',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Lower table name before doing studly
+        |--------------------------------------------------------------------------
+        |
+        | If tables names are capitalised using studly produces incorrect name
+        | this can help fix it ie TABLE_NAME now becomes TableName
+        |
+        */
+
+        'lower_table_name_first' => false,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Model Names
+        |--------------------------------------------------------------------------
+        |
+        | By default the generator will create models with names that match your tables.
+        | However, if you wish to manually override the naming, you can specify a mapping
+        | here between table and model names.
+        |
+        | Example:
+        |   A table called 'billing_invoices' will generate a model called `BillingInvoice`,
+        |   but you'd prefer it to generate a model called 'Invoice'. Therefore, you'd add
+        |   the following array key and value:
+        |     'billing_invoices' => 'Invoice',
+        */
+
+        'model_names' => [
+
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Relation Name Strategy
+        |--------------------------------------------------------------------------
+        |
+        | How the relations should be named in your models.
+        |
+        | 'related'     Use the related table as the relation name.
+        |               (post.author --> user.id)
+                            generates Post::user() and User::posts()
+        |
+        | 'foreign_key' Use the foreign key as the relation name.
+        |               This can help to provide more meaningful relationship names, and avoids naming conflicts
+        |               if you have more than one relationship between two tables.
+        |                   (post.author_id --> user.id)
+        |                       generates Post::author() and User::posts_where_author()
+        |                   (post.editor_id --> user.id)
+        |                       generates Post::editor() and User::posts_where_editor()
+        |               ID suffixes can be omitted from foreign keys.
+        |                   (post.author --> user.id)
+        |                   (post.editor --> user.id)
+        |                       generates the same as above.
+        |               Where the foreign key matches the related table name, it behaves as per the 'related' strategy.
+        |                   (post.user_id --> user.id)
+        |                       generates Post::user() and User::posts()
+        */
+
+        'relation_name_strategy' => 'related',
+        // 'relation_name_strategy' => 'foreign_key',
+
+        /*
+         |--------------------------------------------------------------------------
+         | Determines need or not to generate constants with properties names like
+         |
+         | ...
+         | const AGE = 'age';
+         | const USER_NAME = 'user_name';
+         | ...
+         |
+         | that later can be used in QueryBuilder like
+         |
+         | ...
+         | $builder->select([User::USER_NAME])->where(User::AGE, '<=', 18);
+         | ...
+         |
+         | that helps to avoid typos in strings when typing field names and allows to use
+         | code competition with available model's field names.
+         */
+        'with_property_constants' => false,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Disable Pluralization Name
+        |--------------------------------------------------------------------------
+        |
+        | You can disable pluralization tables and relations
+        |
+        */
+        'pluralize' => true,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Disable Pluralization Except For Certain Tables
+        |--------------------------------------------------------------------------
+        |
+        | You can enable pluralization for certain tables
+        |
+        */
+        'override_pluralize_for' => [
+
+        ],
     ],
 
     /*
@@ -287,10 +435,51 @@ return [
     //         Reliese\Database\Eloquent\BitBooleans::class,
     //     ],
     //     'except' => ['migrations'],
+    //     'only' => ['users'],
     //      // Table Specifics Bellow:
     //     'user' => [
     //      // Don't use any default trait
     //         'use' => [],
     //     ]
     // ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Connection Specifics
+    |--------------------------------------------------------------------------
+    |
+    | In this section you may define the default configuration for each model
+    | that will be generated from a specific connection. You can also nest
+    | database and table specific configurations.
+    |
+    | You may wish to use connection specific config for setting a parent
+    | model with a read only setup, or enforcing a different set of rules
+    | for a connection, e.g. using snake_case naming over CamelCase naming.
+    |
+    | This supports nesting with the following key configuration values, in
+    | reverse precedence order (i.e. the last one found becomes the value).
+    |
+    |       connections.{connection_name}.property
+    |       connections.{connection_name}.{database_name}.property
+    |       connections.{connection_name}.{table_name}.property
+    |       connections.{connection_name}.{database_name}.{table_name}.property
+    |
+    | These values will override those defined in the section above.
+    |
+    */
+
+//    'connections' => [
+//        'read_only_external' => [
+//            'parent' => \App\Models\ReadOnlyModel::class,
+//            'connection' => true,
+//            'users' => [
+//                'connection' => false,
+//            ],
+//            'my_other_database' => [
+//                'password_resets' => [
+//                    'connection' => false,
+//                ]
+//            ]
+//        ],
+//    ],
 ];
